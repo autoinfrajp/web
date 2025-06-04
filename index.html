@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>株式会社オートインフラ - AWSインフラの自動化でビジネスを加速</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Hiragino Sans', 'Yu Gothic UI', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* ヘッダー */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(30, 64, 175, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: #60a5fa;
+        }
+
+        /* ヒーローセクション */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .hero-content {
+            z-index: 1;
+            max-width: 800px;
+            padding: 0 2rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            color: white;
+            margin-bottom: 1rem;
+            animation: slideUp 1s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+            animation: slideUp 1s ease-out 0.2s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: white;
+            color: #1e40af;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            animation: slideUp 1s ease-out 0.4s both;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        /* 浮遊アニメーション */
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .floating-elements div {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-elements div:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating-elements div:nth-child(2) {
+            width: 60px;
+            height: 60px;
+            top: 60%;
+            right: 10%;
+            animation-delay: 2s;
+        }
+
+        .floating-elements div:nth-child(3) {
+            width: 100px;
+            height: 100px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+
+        /* サービスセクション */
+        .services {
+            padding: 100px 5%;
+            background: #f8fafc;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #1e40af;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            border-radius: 2px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(30, 64, 175, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(30, 64, 175, 0.2);
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #3b82f6, #60a5fa);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: white;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            color: #1e40af;
+            margin-bottom: 1rem;
+        }
+
+        .service-card p {
+            color: #64748b;
+            line-height: 1.8;
+        }
+
+        /* 会社情報セクション */
+        .about {
+            padding: 100px 5%;
+            background: white;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            font-size: 2.5rem;
+            color: #1e40af;
+            margin-bottom: 2rem;
+        }
+
+        .about-text p {
+            color: #64748b;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: #f1f5f9;
+            border-radius: 15px;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #3b82f6;
+        }
+
+        .stat-label {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        .about-visual {
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            border-radius: 20px;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-visual::before {
+            content: '☁️';
+            font-size: 5rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        /* フッター */
+        footer {
+            background: #1e293b;
+            color: white;
+            padding: 50px 5% 30px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h3 {
+            color: #60a5fa;
+            margin-bottom: 1rem;
+        }
+
+        .footer-section p, .footer-section a {
+            color: #cbd5e1;
+            text-decoration: none;
+            line-height: 1.8;
+        }
+
+        .footer-section a:hover {
+            color: #60a5fa;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #334155;
+            color: #94a3b8;
+        }
+
+        /* アニメーション */
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        /* レスポンシブデザイン */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        /* スクロールスムージング */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* お問い合わせフォーム */
+        .contact {
+            padding: 100px 5%;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(30, 64, 175, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #1e40af;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(30, 64, 175, 0.3);
+        }
+
+        .contact-info {
+            padding: 2rem 0;
+        }
+
+        .contact-info h3 {
+            font-size: 1.8rem;
+            color: #1e40af;
+            margin-bottom: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(30, 64, 175, 0.05);
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #3b82f6, #60a5fa);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        .contact-details h4 {
+            color: #1e40af;
+            margin-bottom: 0.25rem;
+        }
+
+        #form-status.success {
+            background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+            border: 2px solid #22c55e;
+            color: #166534;
+        }
+
+        #form-status.error {
+            background: linear-gradient(135deg, #fef2f2, #fecaca);
+            border: 2px solid #ef4444;
+            color: #991b1b;
+        }
+
+        .contact-details p {
+            color: #64748b;
+            margin: 0;
+        }
+
+        #form-status.success {
+            background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+            border: 2px solid #22c55e;
+            color: #166534;
+        }
+
+        #form-status.error {
+            background: linear-gradient(135deg, #fef2f2, #fecaca);
+            border: 2px solid #ef4444;
+            color: #991b1b;
+        }
+
+        .submit-btn:disabled {
+            background: #94a3b8;
+            cursor: not-allowed;
+            transform: none;
+        }
+        /* カスタムスクロールバー */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #3b82f6, #60a5fa);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #2563eb, #3b82f6);
+        }
+
+        /* レスポンシブデザイン追加 */
+        @media (max-width: 768px) {
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .contact-form {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ヘッダー -->
+    <header>
+        <nav>
+            <a href="#" class="logo">AutoInfra</a>
+            <ul class="nav-links">
+                <li><a href="#home">ホーム</a></li>
+                <li><a href="#services">サービス</a></li>
+                <li><a href="#about">会社概要</a></li>
+                <li><a href="#contact">お問い合わせ</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- ヒーローセクション -->
+    <section class="hero" id="home">
+        <div class="floating-elements">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="hero-content">
+            <h1>AWSインフラの<br>自動化でビジネス加速</h1>
+            <p>手動作業からの解放、コスト最適化、高可用性を実現。<br>AWSエキスパートが設計する次世代インフラソリューション。</p>
+            
+            <!-- 期間限定キャンペーンボックス -->
+            <div style="background: linear-gradient(135deg, rgba(251, 191, 36, 0.9), rgba(245, 158, 11, 0.9)); padding: 2rem; border-radius: 20px; margin: 2rem 0; backdrop-filter: blur(10px); border: 2px solid rgba(255, 255, 255, 0.3); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);">
+                <div style="text-align: center; margin-bottom: 1.5rem;">
+                    <h3 style="color: #92400e; font-size: 1.4rem; font-weight: bold; margin: 0 0 0.5rem 0;">🎯 今だけ期間限定！新宿区限定キャンペーン</h3>
+                    <p style="color: #92400e; font-weight: bold; font-size: 1.1rem; margin: 0;">無料訪問コンサルティング実施中</p>
+                </div>
+                
+                <div style="background: rgba(255, 255, 255, 0.2); padding: 1.5rem; border-radius: 15px; margin-bottom: 1.5rem;">
+                    <h4 style="color: #92400e; font-size: 1.1rem; font-weight: bold; margin: 0 0 1rem 0;">🔧 対応サービス</h4>
+                    <ul style="color: #92400e; margin: 0; padding-left: 1.2rem; line-height: 1.6;">
+                        <li>AWS・クラウドインフラの設計・構築相談</li>
+                        <li>既存システムのAWS移行戦略立案</li>
+                        <li>サーバーレスアーキテクチャの導入検討</li>
+                        <li>運用コスト削減・最適化のご提案</li>
+                        <li>セキュリティ強化・コンプライアンス対応</li>
+                    </ul>
+                </div>
+                
+                <p style="color: #92400e; text-align: center; font-size: 1rem; margin: 0; line-height: 1.6;">
+                    現地でお話を伺い、お客様の課題に合わせた最適なソリューションをご提案いたします。<br>
+                    <span style="font-weight: bold;">新宿区内なら自転車でお伺い🚴‍♂️ フットワーク軽くサポートします！</span>
+                </p>
+            </div>
+            
+            <a href="#contact" class="cta-button" style="font-size: 1.2rem; padding: 1.2rem 3rem;">無料訪問相談を申し込む（新宿区限定）</a>
+        </div>
+    </section>
+
+    <!-- サービスセクション -->
+    <section class="services" id="services">
+        <div class="container">
+            <h2 class="section-title">私たちのサービス</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">⚡</div>
+                    <h3>AWSサーバーレスアプリ開発</h3>
+                    <p>Lambda、Cognito、API Gateway、CloudFront、Auroraなど、AWSネイティブサービスを活用したServerless Webアプリケーションを開発。スケーラブルで高可用性を実現します。</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🔄</div>
+                    <h3>データベース移行</h3>
+                    <p>Oracle、PostgreSQL、MySQLからAWS RDSへの移行をサポート。リフト&シフト戦略により、ダウンタイムを最小限に抑えたスムーズな移行を実現します。</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🎯</div>
+                    <h3>AWSクラウドコンサルティング</h3>
+                    <p>戦略立案からアーキテクチャ設計、運用最適化まで包括的にサポート。コスト削減とパフォーマンス向上を両立したクラウド戦略をご提案いたします。</p>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="#contact" class="cta-button">詳細を問い合わせる</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 会社概要セクション -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>株式会社オートインフラについて</h2>
+                    <p>私たちは、AWSクラウドインフラの自動化とサーバーレスアーキテクチャを専門とする技術企業です。手動運用からの脱却、コスト最適化、高可用性の実現により、お客様のビジネス価値創出を支援しています。</p>
+                    <p>AWS認定資格を持つエキスパートエンジニアが、最新のクラウドネイティブ技術と豊富な実績を基に、お客様のデジタルインフラ変革を全力でサポートいたします。</p>
+                    <div class="stats">
+                        <div class="stat-item">
+                            <div class="stat-number">30+</div>
+                            <div class="stat-label">AWSプロジェクト実績</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">60%</div>
+                            <div class="stat-label">平均コスト削減率</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">99.9%</div>
+                            <div class="stat-label">可用性保証</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-visual"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- お問い合わせセクション -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">お問い合わせ</h2>
+            <div class="contact-content">
+                <div class="contact-form">
+                    <h3 style="color: #1e40af; margin-bottom: 1.5rem;">無料相談・お見積り</h3>
+                    <form action="https://formspree.io/f/mnnvqrlz" method="POST" id="contact-form">
+                        <div class="form-group">
+                            <label for="company">会社名 *</label>
+                            <input type="text" id="company" name="company" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="name">お名前 *</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">メールアドレス *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">電話番号</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="service">ご相談内容</label>
+                            <select id="service" name="service">
+                                <option value="">選択してください</option>
+                                <option value="AWSサーバーレスアプリ開発">AWSサーバーレスアプリ開発</option>
+                                <option value="データベース移行">データベース移行</option>
+                                <option value="AWSクラウドコンサルティング">AWSクラウドコンサルティング</option>
+                                <option value="その他">その他</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">詳細・ご質問</label>
+                            <textarea id="message" name="message" placeholder="現在の課題やご要望をお聞かせください"></textarea>
+                        </div>
+                        <!-- Formspree用の隠しフィールド -->
+                        <input type="hidden" name="_subject" value="株式会社オートインフラ お問い合わせ">
+                        <input type="hidden" name="_replyto" value="">
+                        <input type="hidden" name="_next" value="thank-you.html">
+                        <button type="submit" class="submit-btn" id="submit-btn">お問い合わせを送信</button>
+                    </form>
+                    <div id="form-status" style="margin-top: 1rem; padding: 1rem; border-radius: 10px; display: none;">
+                        <p id="status-message"></p>
+                    </div>
+                </div>
+                <div class="contact-info">
+                    <h3>お気軽にご相談ください</h3>
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <div class="contact-details">
+                            <h4>メール</h4>
+                            <p>info@autoinfra.jp</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div class="contact-details">
+                            <h4>本社所在地</h4>
+                            <p>東京都新宿区新宿1-36-2<br>新宿第七葉山ビル3F</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">⏰</div>
+                        <div class="contact-details">
+                            <h4>営業時間</h4>
+                            <p>平日 9:00 - 18:00</p>
+                        </div>
+                    </div>
+                    <div style="margin-top: 2rem; padding: 1.5rem; background: linear-gradient(135deg, #eff6ff, #dbeafe); border-radius: 10px;">
+                        <p style="color: #1e40af; font-weight: 600; margin-bottom: 0.5rem;">初回相談無料</p>
+                        <p style="color: #64748b; font-size: 0.9rem; margin: 0;">AWSインフラの課題や移行についてお気軽にご相談ください。専門エンジニアが最適なソリューションをご提案いたします。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- フッター -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>株式会社オートインフラ</h3>
+                <p>AWSクラウドインフラの自動化とサーバーレスアーキテクチャで、ビジネスの成長を加速します。</p>
+                <p>手動運用からの脱却とコスト最適化を実現いたします。</p>
+            </div>
+            <div class="footer-section">
+                <h3>サービス</h3>
+                <p><a href="#services">AWSサーバーレスアプリ開発</a></p>
+                <p><a href="#services">データベース移行</a></p>
+                <p><a href="#services">AWSクラウドコンサルティング</a></p>
+            </div>
+            <div class="footer-section">
+                <h3>お問い合わせ</h3>
+                <p>📧 info@autoinfra.jp</p>
+                <p>📍 東京都新宿区新宿1-36-2<br>&nbsp;&nbsp;&nbsp;&nbsp;新宿第七葉山ビル3F</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 株式会社オートインフラ. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // スムーススクロール
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const target = document.getElementById(targetId);
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // ヘッダーの背景透明度変更
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            const scrolled = window.pageYOffset;
+            const rate = scrolled * 0.01;
+            
+            if (scrolled > 100) {
+                header.style.background = `rgba(30, 64, 175, ${Math.min(0.95, 0.7 + rate)})`;
+            } else {
+                header.style.background = 'rgba(30, 64, 175, 0.95)';
+            }
+        });
+
+        // カードのホバーエフェクト強化
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-15px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // 統計カウンターアニメーション
+        const animateCounters = () => {
+            const counters = document.querySelectorAll('.stat-number');
+            const targets = ['30', '60', '99.9'];
+            
+            counters.forEach((counter, index) => {
+                const target = parseFloat(targets[index]);
+                const increment = target / 50;
+                let current = 0;
+                
+                const updateCounter = () => {
+                    if (current < target) {
+                        current += increment;
+                        if (index === 2) {
+                            counter.textContent = current.toFixed(1) + '%';
+                        } else {
+                            counter.textContent = Math.floor(current) + (index === 1 ? '%' : '+');
+                        }
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.textContent = targets[index] + (index === 1 || index === 2 ? '%' : '+');
+                    }
+                };
+                
+                updateCounter();
+            });
+        };
+
+        // 統計セクションが見えたらアニメーション開始
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    observer.unobserve(entry.target);
+                }
+            });
+        });
+
+        observer.observe(document.querySelector('.stats'));
+
+        // フォーム送信処理（Formspree対応）
+        const form = document.getElementById('contact-form');
+        const submitBtn = document.getElementById('submit-btn');
+        const formStatus = document.getElementById('form-status');
+        const statusMessage = document.getElementById('status-message');
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // バリデーション
+            const requiredFields = this.querySelectorAll('[required]');
+            let isValid = true;
+            
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    field.style.borderColor = '#ef4444';
+                    isValid = false;
+                } else {
+                    field.style.borderColor = '#e2e8f0';
+                }
+            });
+            
+            if (!isValid) {
+                showStatus('必須項目をすべて入力してください。', 'error');
+                return;
+            }
+
+            // 送信処理
+            submitBtn.disabled = true;
+            submitBtn.textContent = '送信中...';
+            
+            try {
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: new FormData(form),
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                if (response.ok) {
+                    showStatus('お問い合わせを受け付けました。担当者より24時間以内にご連絡いたします。', 'success');
+                    form.reset();
+                } else {
+                    throw new Error('送信に失敗しました');
+                }
+            } catch (error) {
+                showStatus('送信に失敗しました。時間をおいて再度お試しください。', 'error');
+            }
+            
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'お問い合わせを送信';
+        });
+
+        function showStatus(message, type) {
+            statusMessage.textContent = message;
+            formStatus.className = type;
+            formStatus.style.display = 'block';
+            
+            // 5秒後に非表示
+            setTimeout(() => {
+                formStatus.style.display = 'none';
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
