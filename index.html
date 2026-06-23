@@ -6,7 +6,7 @@
 <title>株式会社オートインフラ ｜ AWSインフラ自動化 × AI駆動開発</title>
 
 <!-- Primary SEO -->
-<meta name="description" content="株式会社オートインフラは、AWSクラウドの設計・構築からAI駆動開発（AIDD）によるプロダクト内製化までを支援する技術企業です。手動運用とブラックボックスの受託から事業を解放し、設計はプロ・実装はAIで品質と速度を両立します。">
+<meta name="description" content="株式会社オートインフラは、AWSクラウドの設計・構築からAI駆動開発（AIDD）によるプロダクト内製化までを支援する技術企業です。構想はお客様、設計はプロ、実装はAI。3つの役割が三位一体となり、品質と速度を両立して事業をリリースまで運びます。">
 <meta name="keywords" content="AWS,クラウド,インフラ自動化,サーバーレス,AI駆動開発,AIDD,データベース移行,RDS,Lambda,AI-OCR,クラウドコンサルティング,新宿,オートインフラ">
 <meta name="author" content="株式会社オートインフラ">
 <meta name="robots" content="index,follow">
@@ -17,7 +17,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="株式会社オートインフラ">
 <meta property="og:title" content="株式会社オートインフラ ｜ AWSインフラ自動化 × AI駆動開発">
-<meta property="og:description" content="AWSクラウドの設計・構築から、AI駆動開発（AIDD）によるプロダクトの内製化まで。設計はプロ・実装はAIで、事業をリリースまで運びます。">
+<meta property="og:description" content="構想はあなた、設計はプロ、実装はAI。3つの役割が三位一体となり、AWSクラウドとAI駆動開発で事業をリリースまで運びます。">
 <meta property="og:url" content="https://autoinfra.jp/">
 <meta property="og:image" content="https://autoinfra.jp/ogp.png">
 <meta property="og:locale" content="ja_JP">
@@ -25,7 +25,7 @@
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="株式会社オートインフラ ｜ AWSインフラ自動化 × AI駆動開発">
-<meta name="twitter:description" content="AWSクラウドの設計・構築から、AI駆動開発（AIDD）によるプロダクトの内製化まで。設計はプロ・実装はAIで、事業をリリースまで運びます。">
+<meta name="twitter:description" content="構想はあなた、設計はプロ、実装はAI。3つの役割が三位一体となり、AWSクラウドとAI駆動開発で事業をリリースまで運びます。">
 <meta name="twitter:image" content="https://autoinfra.jp/ogp.png">
 
 <!-- Structured Data -->
@@ -136,15 +136,19 @@ section{position:relative}
 
 /* approach */
 .approach{border-bottom:1px solid var(--line)}
-.flow{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch;border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:30px}
-.flow .cell{padding:30px 28px;background:var(--ink-card)}
-.flow .cell.mid{display:grid;place-items:center;background:var(--ink-soft);border-left:1px solid var(--line);border-right:1px solid var(--line);padding:0 22px}
+.flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:0;align-items:stretch;border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:30px}
+.flow .cell{padding:30px 24px;background:var(--ink-card)}
+.flow .cell.mid{display:grid;place-items:center;background:var(--ink-soft);border-left:1px solid var(--line);border-right:1px solid var(--line);padding:0 16px}
 .flow .cell.mid .x{font-family:monospace;color:var(--signal);font-size:22px}
+.flow .role{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:700;margin-bottom:12px;padding:4px 11px;border-radius:99px}
+.flow .a .role{color:var(--signal);background:rgba(0,224,164,.1);border:1px solid rgba(0,224,164,.3)}
+.flow .b .role{color:var(--paper);background:rgba(243,240,233,.07);border:1px solid var(--line)}
+.flow .c .role{color:var(--amber);background:rgba(255,177,59,.1);border:1px solid rgba(255,177,59,.3)}
 .flow .lab{font-family:monospace;font-size:11px;letter-spacing:.1em;color:var(--mute-2);margin-bottom:14px}
-.flow h4{font-size:17px;font-weight:700;margin-bottom:10px}
-.flow p{font-size:13.5px;color:var(--mute);line-height:1.75}
+.flow h4{font-size:16px;font-weight:700;margin-bottom:10px}
+.flow p{font-size:13px;color:var(--mute);line-height:1.7}
 .flow .a h4{color:var(--signal)}
-.flow .b h4{color:var(--amber)}
+.flow .c h4{color:var(--amber)}
 .appro-note{border-left:2px solid var(--signal);padding:6px 0 6px 22px;font-size:15.5px;color:var(--paper);font-weight:600;line-height:1.7}
 @media(max-width:820px){.flow{grid-template-columns:1fr}.flow .cell.mid{border:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:14px}.flow .cell.mid .x{transform:rotate(90deg)}}
 
@@ -246,8 +250,8 @@ footer{border-top:1px solid var(--line);background:var(--ink-soft);padding:54px 
 <section class="hero">
   <div class="wrap">
     <span class="eyebrow"><span class="blink"></span>AWS × AI-DRIVEN DEVELOPMENT</span>
-    <h1>インフラの自動化と<br>AIの<span class="hl">"ブレ"を排した</span>実装で、<br>事業をリリースまで運ぶ。</h1>
-    <p class="lead">AWSクラウドの設計・構築から、AI駆動開発（AIDD）によるプロダクトの内製化まで。手動運用とブラックボックスの受託から、お客様を解放します。</p>
+    <h1>構想は、あなた。<br>設計はプロ、実装はAI。<br><span class="hl">三位一体で、</span><br>事業をリリースまで運ぶ。</h1>
+    <p class="lead">プロダクトオーナーはお客様自身。何を作りたいかを描くのはあなたで、AWS設計と品質はプロが、実装はAIが担います。手動運用とブラックボックスの受託から解放され、構想からリリースまでを最短距離で。</p>
     <div class="ctas">
       <a href="#contact" class="btn btn-primary">無料相談を申し込む <span class="arr">→</span></a>
       <a href="#services" class="btn btn-ghost">サービスを見る</a>
@@ -270,25 +274,27 @@ footer{border-top:1px solid var(--line);background:var(--ink-soft);padding:54px 
   <div class="wrap">
     <div class="sec-head">
       <div class="kicker">01 <span class="slash">/</span> CHALLENGES</div>
-      <h2>クラウドとAI、その"次の一手"で<br>つまずいていませんか。</h2>
+      <h2>AIは便利そう。でも――<br>自社の"どこに"使えるのか、分からない。</h2>
+      <p>多くの企業がつまずくのは「次の一手」ではなく、その手前。何にどう活かせばいいのか、出てきたものが正しいのか、判断がつかない。</p>
     </div>
     <div class="prob-grid">
       <div class="prob">
         <div class="q">?</div>
-        <h4>手動運用とコストが膨らむ</h4>
-        <p>オンプレや手作業の運用から抜け出せず、インフラコストと運用負荷が事業の足かせになっている。</p>
+        <h4>AIを"何に"使えるか分からない</h4>
+        <p>話題なのは分かる。でも自社の業務やサービスの、どこにどう適用すれば成果が出るのか。当たりがつかないまま止まっている。</p>
       </div>
       <div class="prob">
         <div class="q">?</div>
-        <h4>受託はブラックボックス</h4>
-        <p>数百万〜のコストをかけても中身は不透明。保守も外注で、自社に技術もコードも残らない。</p>
+        <h4>出てきたものを評価できない</h4>
+        <p>AIがポンと出した成果物が、本当に良いのか・危なくないのか。技術に詳しくないと、品質もセキュリティも自分では判断できない。</p>
       </div>
       <div class="prob">
         <div class="q">?</div>
-        <h4>AIは導入したが信頼できない</h4>
-        <p>市販のAI-OCRやツールは結果がブレる。ハルシネーションの不安から、業務に組み込みきれない。</p>
+        <h4>一緒に形にする相手がいない</h4>
+        <p>アイデアはある。けれど整理し、検証し、カタチにしてくれるパートナーがいない。受託は丸投げで、伴走はしてくれない。</p>
       </div>
     </div>
+    <p class="appro-note" style="margin-top:32px">私たちは、その曖昧なアイデアを一緒にカタチにし、AIが生んだ成果物の品質とセキュリティを検証しながら、リリースまで伴走します。</p>
   </div>
 </section>
 
@@ -297,23 +303,32 @@ footer{border-top:1px solid var(--line);background:var(--ink-soft);padding:54px 
   <div class="wrap">
     <div class="sec-head">
       <div class="kicker">02 <span class="slash">/</span> APPROACH</div>
-      <h2>設計はプロが、実装はAIが。<br>役割を分けて、品質と速度を両立する。</h2>
-      <p>私たちのAIDD（AI駆動開発）は、AIの速度とプロの品質管理を組み合わせた開発モデルです。</p>
+      <h2>構想はあなた、設計はプロ、実装はAI。<br>3つの役割で、品質と速度を両立する。</h2>
+      <p>私たちのAIDD（AI駆動開発）は、お客様の構想力・プロの品質管理・AIの実装速度を組み合わせた開発モデルです。</p>
     </div>
     <div class="flow">
       <div class="cell a">
-        <div class="lab">HUMAN — DESIGN</div>
-        <h4>プロが設計・品質を担保</h4>
-        <p>要件定義・アーキテクチャ設計・レビュー体制の構築。AIが正確に動くための設計図と、ハルシネーションを排除する仕組みをプロが用意します。</p>
+        <span class="role">● あなた</span>
+        <div class="lab">YOU — VISION / OWNER</div>
+        <h4>構想とプロダクトオーナー</h4>
+        <p>「何を、なぜ作るか」を決める主役はお客様。事業の意思決定とゴール設定を担い、プロダクトの所有権はお客様に残ります。</p>
       </div>
-      <div class="cell mid"><span class="x">×</span></div>
+      <div class="cell mid"><span class="x">→</span></div>
       <div class="cell b">
+        <span class="role">● プロ</span>
+        <div class="lab">PRO — DESIGN / QA</div>
+        <h4>設計と品質を担保</h4>
+        <p>要件定義・アーキテクチャ設計・レビュー体制の構築。AIが正確に動く設計図と、ハルシネーションを排除する仕組みをプロが用意します。</p>
+      </div>
+      <div class="cell mid"><span class="x">→</span></div>
+      <div class="cell c">
+        <span class="role">● AI</span>
         <div class="lab">AI — IMPLEMENT</div>
-        <h4>AIが高速に実装</h4>
+        <h4>高速に実装</h4>
         <p>プロの設計書に沿ってAIが複数の機能を同時に実装。受託の数分の一のコストとスピードで、動くプロダクトに到達します。</p>
       </div>
     </div>
-    <p class="appro-note">「助言だけ」でも「丸投げの受託」でもない。上流設計から本番リリースまでを、一人称でリードします。</p>
+    <p class="appro-note">「助言だけ」でも「丸投げの受託」でもない。あなたの構想を主役に、上流設計から本番リリースまでを一人称でリードします。</p>
   </div>
 </section>
 
