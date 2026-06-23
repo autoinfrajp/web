@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<style>
+:root{
+  --ink:#0a0e14;
+  --paper:#f3f0e9;
+  --line:#242d3a;
+  --signal:#00e0a4;
+  --amber:#ffb13b;
+  --mute:#8a93a3;
+  --grid:rgba(255,255,255,.05);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1200px;height:630px}
+body{
+  background:var(--ink);color:var(--paper);
+  font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans",-apple-system,"Yu Gothic",sans-serif;
+  font-feature-settings:"palt" 1;
+  position:relative;overflow:hidden;
+}
+/* grid backdrop */
+body::before{
+  content:"";position:absolute;inset:0;z-index:0;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:56px 56px;
+  -webkit-mask-image:radial-gradient(ellipse 75% 75% at 75% 30%,#000 30%,transparent 78%);
+  mask-image:radial-gradient(ellipse 75% 75% at 75% 30%,#000 30%,transparent 78%);
+}
+/* glow */
+body::after{
+  content:"";position:absolute;inset:0;z-index:0;
+  background:radial-gradient(ellipse 55% 90% at 88% 10%,rgba(0,224,164,.16),transparent 70%);
+}
+.frame{position:relative;z-index:1;width:100%;height:100%;padding:74px 80px;display:flex;flex-direction:column;justify-content:space-between}
+
+/* top: brand */
+.brand{display:flex;align-items:center;gap:14px;font-weight:700;font-size:26px;letter-spacing:.02em}
+.brand .dot{width:16px;height:16px;border-radius:50%;background:var(--signal);box-shadow:0 0 0 6px rgba(0,224,164,.18)}
+.brand small{color:var(--mute);font-weight:400;font-size:15px;letter-spacing:.18em;margin-left:2px}
+
+/* eyebrow */
+.eyebrow{display:inline-flex;align-items:center;gap:11px;font-size:18px;letter-spacing:.16em;color:var(--signal);
+  border:1px solid rgba(0,224,164,.32);border-radius:99px;padding:9px 20px;margin-bottom:28px;align-self:flex-start;font-family:"SFMono-Regular","Consolas",monospace}
+.eyebrow .b{width:9px;height:9px;border-radius:50%;background:var(--signal)}
+
+/* headline */
+.mid{display:flex;flex-direction:column}
+h1{font-size:66px;line-height:1.22;font-weight:800;letter-spacing:.01em}
+h1 .x{color:var(--signal)}
+.sub{margin-top:26px;font-size:27px;color:#cfd5dd;font-weight:600;letter-spacing:.01em}
+.sub .hl{color:var(--ink);background:var(--signal);padding:2px 12px;border-radius:5px}
+
+/* bottom: url */
+.foot{display:flex;align-items:center;justify-content:space-between}
+.url{font-family:"SFMono-Regular","Consolas",monospace;font-size:24px;color:var(--paper);letter-spacing:.04em}
+.url .at{color:var(--signal)}
+.tags{display:flex;gap:10px}
+.tag{font-family:"SFMono-Regular",monospace;font-size:15px;color:var(--mute);border:1px solid var(--line);border-radius:7px;padding:7px 14px}
+</style>
+</head>
+<body>
+  <div class="frame">
+    <div class="brand"><span class="dot"></span>株式会社オートインフラ<small>AUTOINFRA, INC.</small></div>
+
+    <div class="mid">
+      <span class="eyebrow"><span class="b"></span>AWS × AI-DRIVEN DEVELOPMENT</span>
+      <h1>AWSインフラ自動化<br><span class="x">×</span> AI駆動開発</h1>
+      <div class="sub">設計はプロが、実装はAIが。<span class="hl">事業をリリースまで運ぶ。</span></div>
+    </div>
+
+    <div class="foot">
+      <div class="url"><span class="at">●</span> autoinfra.jp</div>
+      <div class="tags">
+        <span class="tag">AWS</span>
+        <span class="tag">Serverless</span>
+        <span class="tag">AIDD</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
