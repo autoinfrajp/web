@@ -1,6 +1,6 @@
 ---
 title: LiveAligned サポート
-status: draft
+status: published
 last_updated: 2026-08-04
 permalink: /support/livealigned/
 ---
