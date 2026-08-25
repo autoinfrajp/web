@@ -71,6 +71,9 @@ const latestIndexes: readonly LatestIndex[] = [
   },
 ] as const;
 
+const datePattern =
+  /^(\d{4})-(\d{2})-(\d{2})(?:T\d{2}:\d{2}:\d{2}([+-]\d{2}:\d{2}))?$/;
+
 const encoder = new TextEncoder();
 
 for (const page of pages) {
@@ -93,6 +96,7 @@ type Document = {
   title: string;
   version?: string;
   status: string;
+  effectiveDate?: string;
   lastUpdated: string;
   body: string;
 };
@@ -125,6 +129,7 @@ function parseDocument(markdown: string): Document {
     title,
     version: metadata.get("version"),
     status: metadata.get("status") ?? "draft",
+    effectiveDate: metadata.get("effective_date"),
     lastUpdated,
     body: lines.slice(bodyStart).join("\n").trim(),
   };
@@ -134,9 +139,13 @@ function renderPage(page: Page, document: Document): string {
   const robots = document.status === "published"
     ? "index,follow"
     : "noindex,nofollow";
-  const version = document.version
-    ? `<span>版 ${escapeHtml(document.version)}</span>`
-    : "";
+  const meta = [
+    document.version ? `<span>版 ${escapeHtml(document.version)}</span>` : "",
+    document.effectiveDate
+      ? `<span>発効日 ${escapeHtml(formatDate(document.effectiveDate))}</span>`
+      : "",
+    `<span>最終更新日 ${escapeHtml(formatDate(document.lastUpdated))}</span>`,
+  ].filter((entry) => entry !== "").join("\n      ");
 
   return `<!doctype html>
 <html lang="ja">
@@ -156,8 +165,7 @@ function renderPage(page: Page, document: Document): string {
   </header>
   <main class="document">
     <div class="document-meta">
-      ${version}
-      <span>最終更新日 ${escapeHtml(document.lastUpdated)}</span>
+      ${meta}
     </div>
     ${renderMarkdown(document.body)}
   </main>
@@ -198,7 +206,16 @@ function renderLatestIndex(page: LatestIndex, document: Document): string {
     <p><a class="version-link" href="${escapeAttribute(page.versionUrl)}">${
     escapeHtml(version)
   }を読む</a></p>
-    <p class="updated">最終更新日 ${escapeHtml(document.lastUpdated)}</p>
+    ${
+    document.effectiveDate
+      ? `<p class="updated">発効日 ${
+        escapeHtml(formatDate(document.effectiveDate))
+      }</p>`
+      : ""
+  }
+    <p class="updated">最終更新日 ${
+    escapeHtml(formatDate(document.lastUpdated))
+  }</p>
   </main>
   <footer class="site-footer">
     <span>© 株式会社オートインフラ</span>
@@ -207,6 +224,16 @@ function renderLatestIndex(page: LatestIndex, document: Document): string {
 </body>
 </html>
 `;
+}
+
+function formatDate(value: string): string {
+  const match = datePattern.exec(value);
+  if (!match) throw new Error(`Unsupported date: ${value}`);
+  const [, year, month, day, offset] = match;
+  if (!offset) return value;
+  const date = `${Number(year)}年${Number(month)}月${Number(day)}日`;
+  const zone = offset === "+09:00" ? "日本標準時" : `UTC${offset}`;
+  return `${date}（${zone}）`;
 }
 
 function renderMarkdown(markdown: string): string {

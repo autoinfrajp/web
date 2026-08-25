@@ -2,7 +2,8 @@
 title: LiveAligned 利用規約
 version: "1.0"
 status: published
-last_updated: 2026-08-04
+effective_date: "2026-08-04T00:00:00+09:00"
+last_updated: "2026-08-04T00:00:00+09:00"
 permalink: /terms/livealigned/1.0/
 ---
 
@@ -130,4 +131,6 @@ permalink: /terms/livealigned/1.0/
 
 本規約に関するお問い合わせは、<support@autoinfra.jp>へご連絡ください。
 
-制定日：2026年8月4日
+- バージョン：1.0
+- 発効日：2026年8月4日（日本標準時）
+- 最終更新日：2026年8月4日（日本標準時）

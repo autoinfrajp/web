@@ -2,7 +2,8 @@
 title: LiveAligned コミュニティガイドライン
 version: "1.0"
 status: published
-last_updated: 2026-08-04
+effective_date: "2026-08-04T00:00:00+09:00"
+last_updated: "2026-08-04T00:00:00+09:00"
 permalink: /community-guidelines/livealigned/1.0/
 ---
 
@@ -109,4 +110,6 @@ LiveAlignedは、利用者、店舗、スタッフが安心して交流できる
 安全上または法令上必要な場合、本ガイドラインを変更します。重要な変更では、適用日を事前に通知し、
 必要な場合は再同意を求めます。同意記録に用いる版の本文はversioned URLで保持します。
 
-制定日：2026年8月4日
+- バージョン：1.0
+- 発効日：2026年8月4日（日本標準時）
+- 最終更新日：2026年8月4日（日本標準時）
