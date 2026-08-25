@@ -1,7 +1,7 @@
 ---
 title: LiveAligned サポート
 status: published
-last_updated: 2026-08-04
+last_updated: "2026-08-04T00:00:00+09:00"
 permalink: /support/livealigned/
 ---
 
